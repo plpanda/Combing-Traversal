@@ -1,0 +1,23 @@
+Combing Traversal Algorithm: V3
+Given a graph G, and initial k outer nodes to start with.
+
+Initialize k empty sets for k combing nodes.
+
+while (Traversal from all combing nodes are not stopped):
+	//A single pass
+	
+	for all combing nodes as 'i':
+		visit the 'i'th node
+		
+		Find all the unvisited neibours of 'i'
+		
+		if there are unvistited nodes:
+			Randomly choose any of them to visit next as 'i'th node.
+			Push the rest of them to 'i'th set.
+			
+		else
+			Pick one unvisited node from the 'i'th set
+			and mark it to visit next as 'i'th node.
+			
+			if there are no un-visited nodes in the 'i'th set
+				Stop traversal for the 'i'th combing node.
