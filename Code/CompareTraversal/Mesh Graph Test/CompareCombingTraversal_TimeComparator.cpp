@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
+#include <chrono>
 using namespace std;
+using namespace std::chrono;
 
 class Vertex{
 	public:
@@ -40,7 +42,7 @@ class Graph{
 
 			while(!queue.empty()){
 				k = queue.front();
-				cout <<k<<" ";
+				//cout <<k<<" ";
 				queue.pop_front();
 				for(int i = 0; i < vertices[k].edges.size(); ++i)
 					if(!vertices[vertices[k].edges[i]].isVisited){
@@ -51,7 +53,7 @@ class Graph{
         }
 		void DFS(int k){
 			vertices[k].isVisited = true;
-			cout<<k<<" ";
+			//cout<<k<<" ";
 			for(int i = 0; i < vertices[k].edges.size(); ++i)
 				if(!vertices[vertices[k].edges[i]].isVisited)
 					DFS(vertices[k].edges[i]);
@@ -67,14 +69,14 @@ class Graph{
 		void combingTraversal(int k, vector<int> combingNodes){
 			vector<unordered_set<int>> posPaths(k);
 			int pass = 1;
-            cout<<"\nPass : "<<pass++<<" ->\t";
+            //cout<<"\nPass : "<<pass++<<" ->\t";
             for(int i = 0; i < k; ++i){
-                cout<<combingNodes[i]<<"\t";
+                //cout<<combingNodes[i]<<"\t";
                 vertices[combingNodes[i]].isVisited = true;
             }
 			while(1){
 				int breakT = 0;
-				cout<<"\nPass : "<<pass++<<" ->\t";
+				//cout<<"\nPass : "<<pass++<<" ->\t";
 				for(int i = 0; i < k; ++i){
 					if(combingNodes[i] != -1){
 						vector<int> arr = getPossiblePaths(combingNodes[i]);
@@ -94,7 +96,7 @@ class Graph{
 								combingNodes[i] = -1;
 						}
                         if(combingNodes[i] != -1){
-                            cout<<combingNodes[i]<<"\t";
+                            //cout<<combingNodes[i]<<"\t";
 						    vertices[combingNodes[i]].isVisited = true;
                         }
 					}
@@ -117,7 +119,7 @@ int main(){
     int vertices, edges, k;
 	inp>>vertices;
 	inp>>edges;
-	cout<<vertices<<" "<<edges<<endl;
+	//cout<<vertices<<" "<<edges<<endl;
     Graph g1(vertices+1), g2(vertices+1), g3(vertices+1);
     for(int i = 0; i < edges; ++i){
 		int src, dest;
@@ -131,16 +133,26 @@ int main(){
 	vector<int> initNodes(k);
 	for(int i = 0; i < k; ++i)
 		inp>>initNodes[i];
-   	g1.displayEdges();
-	g2.displayEdges();
-	g3.displayEdges();
-	
-	cout<<"\nBFS : ";
-   	g2.BFS(initNodes[0]);
-   	cout<<"\nDFS : ";
+		
+	cout<<"\nBFS : Start";
+	auto start = steady_clock::now();
+	g2.BFS(initNodes[0]);
+	auto stop = steady_clock::now();
+	double duration = duration_cast<nanoseconds>(stop - start).count();
+   	cout<<" - > Done in "<<duration<< " nanoseconds";
+
+	cout<<"\nDFS : Start";
+	auto start1 = steady_clock::now();
     g1.DFS(initNodes[0]);
-	cout<<"\nCombing Traversal : ";
+	auto stop1 = steady_clock::now();
+	double duration1 = duration_cast<nanoseconds>(stop1 - start1).count();
+   	cout<<" - > Done in "<<duration1<< " nanoseconds";
+
+	cout<<"\nCombing Traversal : Start";
+	auto start2 = steady_clock::now();
     g3.combingTraversal(k, initNodes);
- 
+	auto stop2 = steady_clock::now();
+	double duration2 = duration_cast<nanoseconds>(stop2 - start2).count();
+   	cout<<" - > Done in "<<duration2<< " nanoseconds";
     return 0;
 }
