@@ -68,7 +68,7 @@ class Graph{
 		}
 		void combingTraversal(int k, vector<int> combingNodes){
 			vector<unordered_set<int>> posPaths(k);
-			int pass = 1;
+			//int pass = 1;
             //cout<<"\nPass : "<<pass++<<" ->\t";
             for(int i = 0; i < k; ++i){
                 //cout<<combingNodes[i]<<"\t";
@@ -81,9 +81,9 @@ class Graph{
 					if(combingNodes[i] != -1){
 						vector<int> arr = getPossiblePaths(combingNodes[i]);
 						if(arr.size() > 0){	//There are not-traversed nodes to be traversed
-							int index = rand() % arr.size();
-							combingNodes[i] = arr[index];
-							arr.erase(arr.begin()+index);
+							//int index = rand() % arr.size();
+							combingNodes[i] = arr[0];
+							arr.erase(arr.begin());
 							posPaths[i].insert(arr.begin(), arr.end());
 							
 						}else{	//We have to pick from set
@@ -139,21 +139,21 @@ int main(){
 	g2.BFS(initNodes[0]);
 	auto stop = steady_clock::now();
 	double duration = duration_cast<nanoseconds>(stop - start).count();
-   	cout<<" - > Done in "<<duration<< " nanoseconds";
+   	cout<<" - > \t\tDone in "<<duration<< " nanoseconds";
 	
 	cout<<"\nCombing Traversal : Start";
 	auto start2 = steady_clock::now();
     g3.combingTraversal(k, initNodes);
 	auto stop2 = steady_clock::now();
 	double duration2 = duration_cast<nanoseconds>(stop2 - start2).count();
-   	cout<<" - > Done in "<<duration2<< " nanoseconds";
+   	cout<<" - > \tDone in "<<duration2<< " nanoseconds";
 
 	cout<<"\nDFS : Start";
 	auto start1 = steady_clock::now();
     g1.DFS(initNodes[0]);
 	auto stop1 = steady_clock::now();
 	double duration1 = duration_cast<nanoseconds>(stop1 - start1).count();
-   	cout<<" - > Done in "<<duration1<< " nanoseconds";
+   	cout<<" - > \t\tdDone in "<<duration1<< " nanoseconds";
 
 	
     return 0;
